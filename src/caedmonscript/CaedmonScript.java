@@ -5,7 +5,9 @@
  */
 package caedmonscript;
 
+import caedmonscript.ui.MeasurePanel;
 import caedmonscript.ui.ScorePane;
+import java.awt.FlowLayout;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -13,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javax.swing.JFrame;
 import scorelib.BasicScore;
 import scorelib.IntervalMeasure;
 import scorelib.IntervalNote;
@@ -30,7 +33,10 @@ public class CaedmonScript extends Application {
         IntervalMeasure measure = new IntervalMeasure();
         IntervalNote note = new IntervalNote();
         note.setInterval(3);
-        measure.addNote(note, 0);
+        note.setDuration(1);
+        measure.addNote(note, 16);
+        measure.getSignature().setBeatCount(4);
+        measure.getSignature().setBaseUnit(1);
         score.addMeasure(measure, 0);
         ScorePane scorePane = new ScorePane(score);
 //        Button btn = new Button();
@@ -51,6 +57,16 @@ public class CaedmonScript extends Application {
         primaryStage.setTitle("Hello World!");
         primaryStage.setScene(scene);
         primaryStage.show();
+        
+        // Test the frame
+        JFrame testFrame = new JFrame("Test Measure Pane");
+        testFrame.setLayout(new FlowLayout());
+        MeasurePanel testPanel = new MeasurePanel();
+        testPanel.setMeasure(measure);
+        testFrame.add(testPanel);
+        testFrame.pack();
+        testFrame.setDefaultCloseOperation(testFrame.EXIT_ON_CLOSE);
+        testFrame.setVisible(true);
     }
 
     /**
